@@ -109,21 +109,74 @@ namespace JobEvaluation.Service.JobEvaluationAnalysis
                 currentValue =(decimal)completeSourceTable.Select("VariableId='" + outputField + "'")[0]["Value"]==0?0: (decimal)completeSourceTable.Select("VariableId='" + elecField + "'")[0]["Value"] /
                                      (decimal)completeSourceTable.Select("VariableId='" + outputField + "'")[0]["Value"];
                 dr["CompleteValue"] =decimal.Parse(currentValue.ToString("#0.00"));
+                //if (dr["CalculateMethod"].ToString().Trim() == "GT")//如果为大于
+                //{
+                //    if (currentValue-(decimal)dr["PlanValue"] >=(decimal)dr["GradeValueIII"])
+                //    {
+                //        dr["ActualScore"] = dr["ScoreIII"];//优秀
+                //    }
+                //    else
+                //    {
+                //        if (currentValue - (decimal)dr["PlanValue"] >= (decimal)dr["GradeValueII"])
+                //        {
+                //            dr["ActualScore"] = dr["ScoreII"];//良好
+                //        }
+                //        else
+                //        {
+                //            if (currentValue - (decimal)dr["PlanValue"] >= (decimal)dr["GradeValueI"])
+                //            {
+                //                dr["ActualScore"] = dr["ScoreI"];//及格
+                //            }
+                //            else
+                //            {
+                //                dr["ActualScore"] = 0;//不及格
+                //            }
+                //        }
+                //    }
+                //}
+                //else//如果为小于
+                //{
+                //    if ((decimal)dr["PlanValue"] -currentValue>= (decimal)dr["GradeValueIII"])
+                //    {
+                //        dr["ActualScore"] = dr["ScoreIII"];//优秀
+                //    }
+                //    else
+                //    {
+                //        if ((decimal)dr["PlanValue"] - currentValue >= (decimal)dr["GradeValueII"])
+                //        {
+                //            dr["ActualScore"] = dr["ScoreII"];//良好
+                //        }
+                //        else
+                //        {
+                //            if ((decimal)dr["PlanValue"] - currentValue >= (decimal)dr["GradeValueI"])
+                //            {
+                //                dr["ActualScore"] = dr["ScoreI"];//及格
+                //            }
+                //            else
+                //            {
+                //                dr["ActualScore"] = 0;//不及格
+                //            }
+                //        }
+                //    }
+                //}
+
+
+
                 if (dr["CalculateMethod"].ToString().Trim() == "GT")//如果为大于
                 {
-                    if (currentValue-(decimal)dr["PlanValue"] >=(decimal)dr["GradeValueIII"])
+                    if (currentValue>= (decimal)dr["GradeValueIII"])
                     {
                         dr["ActualScore"] = dr["ScoreIII"];//优秀
                     }
                     else
                     {
-                        if (currentValue - (decimal)dr["PlanValue"] >= (decimal)dr["GradeValueII"])
+                        if (currentValue>= (decimal)dr["GradeValueII"])
                         {
                             dr["ActualScore"] = dr["ScoreII"];//良好
                         }
                         else
                         {
-                            if (currentValue - (decimal)dr["PlanValue"] >= (decimal)dr["GradeValueI"])
+                            if (currentValue>= (decimal)dr["GradeValueI"])
                             {
                                 dr["ActualScore"] = dr["ScoreI"];//及格
                             }
@@ -136,19 +189,19 @@ namespace JobEvaluation.Service.JobEvaluationAnalysis
                 }
                 else//如果为小于
                 {
-                    if ((decimal)dr["PlanValue"] -currentValue>= (decimal)dr["GradeValueIII"])
+                    if (currentValue<= (decimal)dr["GradeValueIII"])
                     {
                         dr["ActualScore"] = dr["ScoreIII"];//优秀
                     }
                     else
                     {
-                        if ((decimal)dr["PlanValue"] - currentValue >= (decimal)dr["GradeValueII"])
+                        if (currentValue <= (decimal)dr["GradeValueII"])
                         {
                             dr["ActualScore"] = dr["ScoreII"];//良好
                         }
                         else
                         {
-                            if ((decimal)dr["PlanValue"] - currentValue >= (decimal)dr["GradeValueI"])
+                            if (currentValue<= (decimal)dr["GradeValueI"])
                             {
                                 dr["ActualScore"] = dr["ScoreI"];//及格
                             }

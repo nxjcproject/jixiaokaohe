@@ -21,7 +21,7 @@ namespace JobEvaluation.Web.UI_JobEvaluationReport
 
             ////////////////////调试用,自定义的数据授权
 #if DEBUG
-            List<string> m_DataValidIdItems = new List<string>() { "zc_nxjc_qtx" };
+            List<string> m_DataValidIdItems = new List<string>() { "zc_nxjc_byc" };
             AddDataValidIdGroup("ProductionOrganization", m_DataValidIdItems);
 #elif RELEASE
 #endif
