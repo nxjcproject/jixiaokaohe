@@ -1591,6 +1591,8 @@
     <Content Include="Test.aspx" />
     <Content Include="UI_JobEvaluationReport\JobEvaluationMonthlyReport.aspx" />
     <Content Include="UI_JobEvaluationReport\js\page\JobEvaluationMonthlyReport.js" />
+    <Content Include="UI_JobEvaluationReport\js\page\WorkingTeamJobEvaluationMonthlyReport.js" />
+    <Content Include="UI_JobEvaluationReport\WorkingTeamJobEvaluationMonthlyReport.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1608,6 +1610,13 @@
     </Compile>
     <Compile Include="UI_JobEvaluationReport\JobEvaluationMonthlyReport.aspx.designer.cs">
       <DependentUpon>JobEvaluationMonthlyReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UI_JobEvaluationReport\WorkingTeamJobEvaluationMonthlyReport.aspx.cs">
+      <DependentUpon>WorkingTeamJobEvaluationMonthlyReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI_JobEvaluationReport\WorkingTeamJobEvaluationMonthlyReport.aspx.designer.cs">
+      <DependentUpon>WorkingTeamJobEvaluationMonthlyReport.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

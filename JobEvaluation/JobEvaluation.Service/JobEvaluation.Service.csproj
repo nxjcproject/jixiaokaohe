@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EnergyConsumption">
+      <HintPath>..\Lib\EnergyConsumption.dll</HintPath>
+    </Reference>
     <Reference Include="SqlServerDataAdapter">
       <HintPath>..\Lib\SqlServerDataAdapter.dll</HintPath>
     </Reference>
@@ -47,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JobEvaluationAnalysis\JobEvaluationService.cs" />
+    <Compile Include="JobEvaluationAnalysis\WorkingTeamJobEvaluationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
