@@ -106,60 +106,17 @@ namespace JobEvaluation.Service.JobEvaluationAnalysis
                 decimal currentValue = 0;
                 string elecField = dr["ElectricityQuantityField"].ToString().Trim();
                 string outputField = dr["OutputQuantityField"].ToString().Trim();
-                currentValue =(decimal)completeSourceTable.Select("VariableId='" + outputField + "'")[0]["Value"]==0?0: (decimal)completeSourceTable.Select("VariableId='" + elecField + "'")[0]["Value"] /
-                                     (decimal)completeSourceTable.Select("VariableId='" + outputField + "'")[0]["Value"];
+                if (dr["PerformanceName"].ToString().Trim() == "熟料煤耗")//熟料煤耗转换单位kg/t
+                {
+                    currentValue = (decimal)completeSourceTable.Select("VariableId='" + outputField + "'")[0]["Value"] == 0 ? 0 : (decimal)completeSourceTable.Select("VariableId='" + elecField + "'")[0]["Value"]*1000 /
+                                         (decimal)completeSourceTable.Select("VariableId='" + outputField + "'")[0]["Value"];
+                }
+                else
+                {
+                    currentValue = (decimal)completeSourceTable.Select("VariableId='" + outputField + "'")[0]["Value"] == 0 ? 0 : (decimal)completeSourceTable.Select("VariableId='" + elecField + "'")[0]["Value"] /
+                                         (decimal)completeSourceTable.Select("VariableId='" + outputField + "'")[0]["Value"];
+                }
                 dr["CompleteValue"] =decimal.Parse(currentValue.ToString("#0.00"));
-                //if (dr["CalculateMethod"].ToString().Trim() == "GT")//如果为大于
-                //{
-                //    if (currentValue-(decimal)dr["PlanValue"] >=(decimal)dr["GradeValueIII"])
-                //    {
-                //        dr["ActualScore"] = dr["ScoreIII"];//优秀
-                //    }
-                //    else
-                //    {
-                //        if (currentValue - (decimal)dr["PlanValue"] >= (decimal)dr["GradeValueII"])
-                //        {
-                //            dr["ActualScore"] = dr["ScoreII"];//良好
-                //        }
-                //        else
-                //        {
-                //            if (currentValue - (decimal)dr["PlanValue"] >= (decimal)dr["GradeValueI"])
-                //            {
-                //                dr["ActualScore"] = dr["ScoreI"];//及格
-                //            }
-                //            else
-                //            {
-                //                dr["ActualScore"] = 0;//不及格
-                //            }
-                //        }
-                //    }
-                //}
-                //else//如果为小于
-                //{
-                //    if ((decimal)dr["PlanValue"] -currentValue>= (decimal)dr["GradeValueIII"])
-                //    {
-                //        dr["ActualScore"] = dr["ScoreIII"];//优秀
-                //    }
-                //    else
-                //    {
-                //        if ((decimal)dr["PlanValue"] - currentValue >= (decimal)dr["GradeValueII"])
-                //        {
-                //            dr["ActualScore"] = dr["ScoreII"];//良好
-                //        }
-                //        else
-                //        {
-                //            if ((decimal)dr["PlanValue"] - currentValue >= (decimal)dr["GradeValueI"])
-                //            {
-                //                dr["ActualScore"] = dr["ScoreI"];//及格
-                //            }
-                //            else
-                //            {
-                //                dr["ActualScore"] = 0;//不及格
-                //            }
-                //        }
-                //    }
-                //}
-
 
 
                 if (dr["CalculateMethod"].ToString().Trim() == "GT")//如果为大于

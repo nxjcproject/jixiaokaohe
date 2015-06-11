@@ -13,7 +13,8 @@ namespace JobEvaluation.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DataTable temp= JobEvaluationService.GetJobEvaluationTable("2015-01-02", "zc_nxjc_qtx_efc");
+            //DataTable temp= JobEvaluationService.GetJobEvaluationTable("2015-01-02", "zc_nxjc_qtx_efc");
+            DataTable temp = OperatorEvaluationService.DataService(1,new string[] { "O03" }, "2015-05");
         }
     }
 }
