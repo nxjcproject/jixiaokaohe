@@ -1591,10 +1591,13 @@
     <Content Include="Test.aspx" />
     <Content Include="UI_JobEvaluationReport\JobEvaluationMonthlyReport.aspx" />
     <Content Include="UI_JobEvaluationReport\js\page\JobEvaluationMonthlyReport.js" />
+<<<<<<< HEAD
     <Content Include="UI_JobEvaluationReport\js\page\OperatorEvaluation.js" />
     <Content Include="UI_JobEvaluationReport\OperatorEvaluation.aspx" />
+=======
     <Content Include="UI_JobEvaluationReport\js\page\WorkingTeamJobEvaluationMonthlyReport.js" />
     <Content Include="UI_JobEvaluationReport\WorkingTeamJobEvaluationMonthlyReport.aspx" />
+>>>>>>> 7b17635631c555b250bd5dee1e3c379f0f9f58c2
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1613,21 +1616,22 @@
     <Compile Include="UI_JobEvaluationReport\JobEvaluationMonthlyReport.aspx.designer.cs">
       <DependentUpon>JobEvaluationMonthlyReport.aspx</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="UI_JobEvaluationReport\OperatorEvaluation.aspx.cs">
       <DependentUpon>OperatorEvaluation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="UI_JobEvaluationReport\OperatorEvaluation.aspx.designer.cs">
+      <DependentUpon>OperatorEvaluation.aspx</DependentUpon>
+=======
     <Compile Include="UI_JobEvaluationReport\WorkingTeamJobEvaluationMonthlyReport.aspx.cs">
       <DependentUpon>WorkingTeamJobEvaluationMonthlyReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI_JobEvaluationReport\OperatorEvaluation.aspx.designer.cs">
-      <DependentUpon>OperatorEvaluation.aspx</DependentUpon>
-    </Compile>
     <Compile Include="UI_JobEvaluationReport\WorkingTeamJobEvaluationMonthlyReport.aspx.designer.cs">
       <DependentUpon>WorkingTeamJobEvaluationMonthlyReport.aspx</DependentUpon>
+>>>>>>> 7b17635631c555b250bd5dee1e3c379f0f9f58c2
     </Compile>
-
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\pllib\syntaxhighlighter\LGPL-LICENSE" />

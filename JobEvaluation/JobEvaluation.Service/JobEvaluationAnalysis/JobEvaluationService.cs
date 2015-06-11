@@ -53,8 +53,8 @@ namespace JobEvaluation.Service.JobEvaluationAnalysis
             ///获取实际完成情况基本数据
             DataTable completeSourceTable = new DataTable();
             DateTime dateTime=DateTime.Parse(date);
-            string startDate = (dateTime.AddDays(-dateTime.Day).ToString("yyyy-MM") + "01");
-            string endDate = (dateTime.ToString("yyyy-MM") + dateTime.AddMonths(1).AddDays(-(dateTime.Day)).ToString("dd"));
+            string startDate = (dateTime.AddDays(-dateTime.Day).ToString("yyyy-MM") + "-01");
+            string endDate = (dateTime.ToString("yyyy-MM") + "-" + dateTime.AddMonths(1).AddDays(-(dateTime.Day)).ToString("dd"));
             string completeSql = @"SELECT SUM([B].[TotalPeakValleyFlatB]) AS Value,[VariableId]
 		                                FROM [dbo].[balance_Energy] AS B INNER JOIN [dbo].[tz_Balance] AS A
 		                                ON [A].[BalanceId]=[A].[BalanceId]

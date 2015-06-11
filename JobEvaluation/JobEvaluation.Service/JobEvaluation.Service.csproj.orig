@@ -50,8 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JobEvaluationAnalysis\JobEvaluationService.cs" />
+<<<<<<< HEAD
     <Compile Include="JobEvaluationAnalysis\OperatorEvaluationService.cs" />
+=======
     <Compile Include="JobEvaluationAnalysis\WorkingTeamJobEvaluationService.cs" />
+>>>>>>> 7b17635631c555b250bd5dee1e3c379f0f9f58c2
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
