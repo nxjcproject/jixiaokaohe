@@ -42,7 +42,8 @@ namespace JobEvaluation.Web.UI_JobEvaluationReport
         public static string GetData(string levelCodesStr, string date,int type)
         {
             string[] levelCodes = levelCodesStr.Split(',');
-            DataTable table= OperatorEvaluationService.DataService(type,levelCodes, date);
+            //DataTable table= OperatorEvaluationService.DataService(type,levelCodes, date);
+            DataTable table = OperatorEvaluationService.DataService(type, levelCodes, date);
             string json = EasyUIJsonParser.DataGridJsonParser.DataTableToJson(table);
             return json;
         }
