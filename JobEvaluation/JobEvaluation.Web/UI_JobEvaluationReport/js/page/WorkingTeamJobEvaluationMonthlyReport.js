@@ -47,13 +47,13 @@ function GetTeamJobEvaluation(organizationId, consumptionType, date) {
 
 function ShiftsSchedulingStyler(value, row, index) {
     if (value == "A班") {
-        return 'background-color:#00FFFF;';
+        return 'background-color:#FF0000;';
     } else if (value == "B班") {
-        return 'background-color:#ADFF2F;';
+        return 'background-color:#00CD00;';
     } else if (value == "C班") {
-        return 'background-color:#FFD700;';
+        return 'background-color:#FFFF00;';
     } else if (value == "D班") {
-        return 'background-color:#FF7F50;';
+        return 'background-color:#8470FF;';
     }
 }
 

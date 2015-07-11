@@ -55,27 +55,27 @@
                     </table>
                 </div>
                 <div data-options="region:'east',split:true" style="width:300px;" title="排班情况">
-	                <table id="dgShiftsScheduling" class="easyui-datagrid" data-options="fill: true">
+	                <table id="dgShiftsScheduling" class="easyui-datagrid" data-options="fill: true,singleSelect:true,fit:true">
 		                <thead>
 			                <tr>
 				                <th data-options="field:'TimeStamp',width:120">日期</th>
-                                <th data-options="field:'FirstWorkingTeam',width:50,styler:ShiftsSchedulingStyler">甲班</th>
-				                <th data-options="field:'SecondWorkingTeam',width:50,styler:ShiftsSchedulingStyler">乙班</th>
-                                <th data-options="field:'ThirdWorkingTeam',width:50,styler:ShiftsSchedulingStyler">丙班</th>
+                                <th data-options="field:'FirstWorkingTeam',width:50,styler:ShiftsSchedulingStyler">夜班</th>
+				                <th data-options="field:'SecondWorkingTeam',width:50,styler:ShiftsSchedulingStyler">白班</th>
+                                <th data-options="field:'ThirdWorkingTeam',width:50,styler:ShiftsSchedulingStyler">中班</th>
 			                </tr>
 		                </thead>
 	                </table>
                 </div>
                 <div data-options="region:'center'" title="班组考核">
-	                <table id="tgTeamJobEvaluation" class="easyui-treegrid" data-options="idField:'id',treeField:'Name',rownumbers:true,singleSelect:true" style="width:100%">
+	                <table id="tgTeamJobEvaluation" class="easyui-treegrid" data-options="idField:'id',treeField:'Name',rownumbers:true,singleSelect:true,fit:true" style="width:100%">
 		                <thead>
 			                <tr>
 				                <th data-options="field:'Name',width:250">工序</th>
-                                <th data-options="field:'A班',width:150,formatter:ValueFormatter,styler:JobEvaluationStyler">A班</th>
-				                <th data-options="field:'B班',width:150,formatter:ValueFormatter,styler:JobEvaluationStyler">B班</th>
-                                <th data-options="field:'C班',width:150,formatter:ValueFormatter,styler:JobEvaluationStyler">C班</th>
-                                <th data-options="field:'D班',width:150,formatter:ValueFormatter,styler:JobEvaluationStyler">D班</th>
-                                <th data-options="field:'合计',width:150,formatter:ValueFormatter,styler:JobEvaluationStyler">平均</th>
+                                <th data-options="field:'A班',width:60,formatter:ValueFormatter,styler:JobEvaluationStyler">A班</th>
+				                <th data-options="field:'B班',width:60,formatter:ValueFormatter,styler:JobEvaluationStyler">B班</th>
+                                <th data-options="field:'C班',width:60,formatter:ValueFormatter,styler:JobEvaluationStyler">C班</th>
+                                <th data-options="field:'D班',width:60,formatter:ValueFormatter,styler:JobEvaluationStyler">D班</th>
+                                <th data-options="field:'合计',width:60,formatter:ValueFormatter,styler:JobEvaluationStyler">平均</th>
 			                </tr>
 		                </thead>
 	                </table>

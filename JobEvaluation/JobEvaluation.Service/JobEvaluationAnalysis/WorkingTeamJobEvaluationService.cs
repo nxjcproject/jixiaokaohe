@@ -24,7 +24,7 @@ namespace JobEvaluation.Service.JobEvaluationAnalysis
             ISqlServerDataFactory dataFactory = new SqlServerDataFactory(connectionString);
 
             string sql = @" SELECT [TimeStamp],[FirstWorkingTeam],[SecondWorkingTeam],[ThirdWorkingTeam]
-                              FROM [NXJC].[dbo].[tz_Balance]
+                              FROM [tz_Balance]
                               WHERE SUBSTRING([TimeStamp],0,8) = @date AND
 		                            LEN([TimeStamp]) = 10 AND
 		                            [OrganizationID] = @organizationId
