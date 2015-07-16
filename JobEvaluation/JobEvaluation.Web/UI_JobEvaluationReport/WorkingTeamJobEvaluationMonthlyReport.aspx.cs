@@ -28,17 +28,17 @@ namespace JobEvaluation.Web.UI_JobEvaluationReport
         }
 
         [WebMethod]
-        public static string GetShiftsSchedulingLog(string organizationId, string date)
+        public static string GetShiftsSchedulingLog(string organizationId, string startDate,string endDate)
         {
-            DataTable table = WorkingTeamJobEvaluationService.GetShiftsSchedulingLogMonthly(organizationId, date);
+            DataTable table = WorkingTeamJobEvaluationService.GetShiftsSchedulingLogMonthly(organizationId,startDate,endDate);
             return EasyUIJsonParser.DataGridJsonParser.DataTableToJson(table);
         }
 
         [WebMethod]
-        public static string GetTeamJobEvaluation(string organizationId, string consumptionType, string date)
+        public static string GetTeamJobEvaluation(string organizationId, string consumptionType, string startDate,string endDate)
         {
-            DateTime datetime = DateTime.Parse(date);
-            DataTable table = WorkingTeamJobEvaluationService.GetTeamJobEvaluationMonthly(organizationId, consumptionType, datetime);
+            //DateTime datetime = DateTime.Parse(date);
+            DataTable table = WorkingTeamJobEvaluationService.GetTeamJobEvaluationMonthly(organizationId, consumptionType, startDate, endDate);
             return EasyUIJsonParser.TreeGridJsonParser.DataTableToJsonByLevelCode(table, "LevelCode");
         }
     }

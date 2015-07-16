@@ -1,17 +1,32 @@
-﻿function Query() {
+﻿$(document).ready(function () {
+    InitDate();
+})
+//初始化日期框
+function InitDate() {
+    var endDate = new Date();
+    var startDate = new Date();
+    startDate.setDate(endDate.getDate() - 30);
+    var endString = endDate.getFullYear() + '-' + (endDate.getMonth() + 1) + '-' + endDate.getDate();
+    var startString = startDate.getFullYear() + '-' + (startDate.getMonth() + 1) + '-' + startDate.getDate();
+    //var beforeString = beforeDate.getFullYear() + '-' + (beforeDate.getMonth() + 1) + '-' + beforeDate.getDate();
+    $('#startDate').datebox('setValue', startString);
+    $('#endDate').datebox('setValue', endString);
+}
+function Query() {
     var organizationId = $('#organizationId').val();
-    var datetime = $('#datetime').datetimespinner('getValue');
+    var startDate = $('#startDate').datebox('getValue');
+    var endDate = $('#endDate').datebox('getValue');
     var consumptionType = $('#cbbConsumptionType').combobox('getValue');
 
     // 获取排班记录
-    GetShiftsSchedulingLog(organizationId, datetime);
+    GetShiftsSchedulingLog(organizationId, startDate, endDate);
     // 获取考核记录
-    GetTeamJobEvaluation(organizationId, consumptionType, datetime);
+    GetTeamJobEvaluation(organizationId, consumptionType, startDate, endDate);
 }
 
-function GetShiftsSchedulingLog(organizationId, date) {
+function GetShiftsSchedulingLog(organizationId, startDate, endDate) {
     var queryUrl = 'WorkingTeamJobEvaluationMonthlyReport.aspx/GetShiftsSchedulingLog';
-    var dataToSend = '{organizationId: "' + organizationId + '", date:"' + date + '"}';
+    var dataToSend = '{organizationId: "' + organizationId + '", startDate:"' + startDate + '", endDate:"' + endDate+'"}';
 
     $.ajax({
         type: "POST",
@@ -27,9 +42,9 @@ function GetShiftsSchedulingLog(organizationId, date) {
     });
 }
 
-function GetTeamJobEvaluation(organizationId, consumptionType, date) {
+function GetTeamJobEvaluation(organizationId, consumptionType, startDate, endDate) {
     var queryUrl = 'WorkingTeamJobEvaluationMonthlyReport.aspx/GetTeamJobEvaluation';
-    var dataToSend = '{organizationId: "' + organizationId + '",consumptionType:"' + consumptionType + '", date:"' + date + '"}';
+    var dataToSend = '{organizationId: "' + organizationId + '",consumptionType:"' + consumptionType + '", startDate:"' + startDate + '", endDate:"' + endDate + '"}';
 
     $.ajax({
         type: "POST",

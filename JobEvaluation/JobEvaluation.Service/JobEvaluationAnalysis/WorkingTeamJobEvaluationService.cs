@@ -18,21 +18,22 @@ namespace JobEvaluation.Service.JobEvaluationAnalysis
         /// <param name="organizationId">组织机构ID</param>
         /// <param name="date">时间，yyyy-MM</param>
         /// <returns></returns>
-        public static DataTable GetShiftsSchedulingLogMonthly(string organizationId, string date)
+        public static DataTable GetShiftsSchedulingLogMonthly(string organizationId, string startDate,string endDate)
         {
             string connectionString = ConnectionStringFactory.NXJCConnectionString;
             ISqlServerDataFactory dataFactory = new SqlServerDataFactory(connectionString);
 
             string sql = @" SELECT [TimeStamp],[FirstWorkingTeam],[SecondWorkingTeam],[ThirdWorkingTeam]
                               FROM [tz_Balance]
-                              WHERE SUBSTRING([TimeStamp],0,8) = @date AND
-		                            LEN([TimeStamp]) = 10 AND
+                              WHERE TimeStamp>=@startDate AND TimeStamp<=@endDate
+		                            and StaticsCycle = 'day' AND
 		                            [OrganizationID] = @organizationId
                               ORDER BY [TimeStamp]";
 
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("organizationId", organizationId),
-                new SqlParameter("date", date)
+                new SqlParameter("startDate", startDate),
+                new SqlParameter("endDate",endDate)
             };
 
             return dataFactory.Query(sql, parameters); ;
@@ -71,13 +72,13 @@ namespace JobEvaluation.Service.JobEvaluationAnalysis
             return dataFactory.Query(sql, parameters);
         }
 
-        private static DataTable GetProcessValueTableByOrganizationId(string organizationId, DateTime start, DateTime end)
+        private static DataTable GetProcessValueTableByOrganizationId(string organizationId, string start, string end)
         {
             string connectionString = ConnectionStringFactory.NXJCConnectionString;
             ISqlServerDataFactory dataFactory = new SqlServerDataFactory(connectionString);
 
             string sql = @" SELECT
-		                            LEFT([A].[TimeStamp],7) AS [TimeStamp],
+		                            --LEFT([A].[TimeStamp],7) AS [TimeStamp],
                                     [B].[OrganizationID],
 		                            [B].[VariableId],
 		                            SUM(CASE WHEN [A].[FirstWorkingTeam] = 'A班' THEN [B].[FirstB] WHEN [A].[SecondWorkingTeam] = 'A班' THEN [B].[SecondB] WHEN [A].[ThirdWorkingTeam] = 'A班' THEN [B].[ThirdB] ELSE 0 END) AS A班,
@@ -92,27 +93,27 @@ namespace JobEvaluation.Service.JobEvaluationAnalysis
 		                            ([A].[StaticsCycle] = 'day') AND 
 		                            ([A].[TimeStamp] >= @startTime) AND
 		                            ([A].[TimeStamp] <= @endTime)
-                            GROUP BY [B].[OrganizationID], [B].[VariableId], LEFT([A].[TimeStamp],7)";
+                            GROUP BY [B].[OrganizationID], [B].[VariableId]";
 
             SqlParameter[] parameters = new SqlParameter[]{
                 new SqlParameter("organizationId", organizationId),
-                new SqlParameter("startTime", start.ToString("yyyy-MM-dd")),
-                new SqlParameter("endTime", end.ToString("yyyy-MM-dd"))
+                new SqlParameter("startTime", start),
+                new SqlParameter("endTime", end)
             };
 
             return dataFactory.Query(sql, parameters);
         }
 
-        private static DataTable GetProcessValueTableMonthly(string organizationId, DateTime month)
+        private static DataTable GetProcessValueTableMonthly(string organizationId, string startDate,string endDate)
         {
-            string startDate = (month.ToString("yyyy-MM") + "-01");
-            string endDate = (month.ToString("yyyy-MM") + "-" + month.AddMonths(1).AddDays(-(month.Day)).ToString("dd"));
-            return GetProcessValueTableByOrganizationId(organizationId, DateTime.Parse(startDate),  DateTime.Parse(endDate));
+            //string startDate = (month.ToString("yyyy-MM") + "-01");
+            //string endDate = (month.ToString("yyyy-MM") + "-" + month.AddMonths(1).AddDays(-(month.Day)).ToString("dd"));
+            return GetProcessValueTableByOrganizationId(organizationId, startDate, endDate);
         }
 
-        public static DataTable GetTeamJobEvaluationMonthly(string organization, string consumptionType, DateTime date)
+        public static DataTable GetTeamJobEvaluationMonthly(string organization, string consumptionType, string startDate,string endDate)
         {
-            DataTable table = GetProcessValueTableMonthly(organization, date);
+            DataTable table = GetProcessValueTableMonthly(organization, startDate,endDate);
             DataTable templateTable = GetProcessByOrganizationId(organization, consumptionType);
             string[] calculateColumns = { "A班", "B班", "C班", "D班", "合计" };
             DataTable result = EnergyConsumptionCalculate.CalculateByOrganizationId(table, templateTable, "ValueFormula", calculateColumns);

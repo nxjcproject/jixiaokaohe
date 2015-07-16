@@ -46,9 +46,13 @@
                                 </select>
                             </td>
                             <td><div class="datagrid-btn-separator"></div></td>
-                            <td>选择月份：</td>
+                            <td>开始时间:</td>
                             <td>
-                                <input id="datetime" class="easyui-datetimespinner" value="6/24/2014" data-options="formatter:formatter2,parser:parser2,selections:[[0,4],[5,7]]" style="width:180px;" />
+                                <input id="startDate" type="text" class="easyui-datebox" required="required" style="width:100px;"/>
+                            </td>
+                            <td>结束时间:</td>
+                            <td>
+                                <input id="endDate" type="text" class="easyui-datebox" required="required" style="width:100px;"/>
                             </td>
                             <td><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="Query();">查询</a></td>
                         </tr>
