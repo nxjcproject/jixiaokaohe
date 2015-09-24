@@ -51,35 +51,31 @@ namespace JobEvaluation.Service.JobEvaluationAnalysis
             //    }
             //}
             ///获取实际完成情况基本数据
-            DataTable completeSourceTable = new DataTable();
             DateTime dateTime=DateTime.Parse(date);
-            string startDate = (dateTime.AddDays(-dateTime.Day).ToString("yyyy-MM") + "-01");
-            string endDate = (dateTime.ToString("yyyy-MM") + "-" + dateTime.AddMonths(1).AddDays(-(dateTime.Day)).ToString("dd"));
-            string completeSql = @"SELECT SUM([B].[TotalPeakValleyFlatB]) AS Value,[VariableId]
-		                                FROM [dbo].[balance_Energy] AS B INNER JOIN [dbo].[tz_Balance] AS A
-		                                ON [A].[BalanceId]=[A].[BalanceId]
-		                                INNER JOIN [dbo].[system_Organization] AS C
-		                                ON [B].[OrganizationID]=[C].[OrganizationID]
-		                                WHERE [C].[LevelCode] LIKE 
-		                                (
-				                                SELECT [C].[LevelCode] FROM [dbo].[system_Organization] AS C WHERE [C].[OrganizationID]=@organizationId
-		                                )+'%'
-		                                AND     
-		                                [A].StaticsCycle='day' AND
-		                                [A].[TimeStamp]>=@startDate AND
-		                                [A].[TimeStamp]<=@endDate AND
-		                                (
-		                                [B].[VariableId]='coalPreparation_ElectricityQuantity' OR [B].[VariableId]='clinker_PulverizedCoalOutput' OR [B].[VariableId]='rawMaterialsPreparation_ElectricityQuantity'
-		                                OR [B].[VariableId]='clinker_MixtureMaterialsOutput' OR [B].[VariableId]='clinkerPreparation_ElectricityQuantity'
-		                                OR [B].[VariableId]='clinker_ClinkerOutput' OR [B].[VariableId]='clinker_PulverizedCoalInput' 
-		                                OR [B].[VariableId]='cement_CementOutput' OR [B].[VariableId]='cementmill_ElectricityQuantity' 
-		                                OR [B].[VariableId]='cementGrind_ElectricityQuantity'
-		                                )
-		                                GROUP BY [VariableId]
+            string startDate = dateTime.ToString("yyyy-MM-01");   //(dateTime.AddDays(-dateTime.Day).ToString("yyyy-MM") + "-01");
+            string endDate = dateTime.AddMonths(1).ToString("yyyy-MM-01"); //(dateTime.ToString("yyyy-MM") + "-" + dateTime.AddMonths(1).AddDays(-(dateTime.Day)).ToString("dd"));
+            string completeSql = @"SELECT SUM([B].[TotalPeakValleyFlatB]) AS Value,[B].[VariableId] as VariableId
+										 FROM [dbo].[balance_Energy] B, [dbo].[tz_Balance] A, [dbo].[system_Organization] C, [dbo].[system_Organization] D
+										 where [C].[OrganizationID] = @organizationId AND 
+										 [D].[OrganizationID] like [C].[OrganizationID] + '%' AND 
+                                         [D].[LevelType] <> 'factory' AND 
+										 [B].[OrganizationID] in ([D].[OrganizationID]) AND 
+										 [A].StaticsCycle='day' AND
+		                                 [A].[TimeStamp]>=@startDate AND
+		                                 [A].[TimeStamp]<@endDate AND
+										 [A].[BalanceId] = [B].[KeyId] AND
+		                                 (
+		                                 [B].[VariableId]='coalPreparation_ElectricityQuantity' OR [B].[VariableId]='clinker_PulverizedCoalOutput' OR [B].[VariableId]='rawMaterialsPreparation_ElectricityQuantity'
+		                                 OR [B].[VariableId]='clinker_MixtureMaterialsOutput' OR [B].[VariableId]='clinkerPreparation_ElectricityQuantity'
+		                                 OR [B].[VariableId]='clinker_ClinkerOutput' OR [B].[VariableId]='clinker_PulverizedCoalInput' 
+		                                 OR [B].[VariableId]='cement_CementOutput' OR [B].[VariableId]='cementmill_ElectricityQuantity' 
+		                                 OR [B].[VariableId]='cementGrind_ElectricityQuantity'
+		                                 )
+		                                 GROUP BY [VariableId]
                                 ";
             SqlParameter[] completeParameters = { new SqlParameter("startDate", startDate), new SqlParameter("endDate", endDate),
                                                     new SqlParameter("organizationId", organizationId) };
-            completeSourceTable = _dataFactory.Query(completeSql, completeParameters);
+            DataTable completeSourceTable = _dataFactory.Query(completeSql, completeParameters);
             ///向目的表中填充数据
             string month = InitMonthDictionary()[Int16.Parse(dateTime.ToString("MM"))];
             decimal finalScore = 0;
@@ -108,8 +104,9 @@ namespace JobEvaluation.Service.JobEvaluationAnalysis
                 string outputField = dr["OutputQuantityField"].ToString().Trim();
                 if (dr["PerformanceName"].ToString().Trim() == "熟料煤耗")//熟料煤耗转换单位kg/t
                 {
-                    currentValue = (decimal)completeSourceTable.Select("VariableId='" + outputField + "'")[0]["Value"] == 0 ? 0 : (decimal)completeSourceTable.Select("VariableId='" + elecField + "'")[0]["Value"]*1000 /
-                                         (decimal)completeSourceTable.Select("VariableId='" + outputField + "'")[0]["Value"];
+                    decimal m_CoalInput = (decimal)completeSourceTable.Select("VariableId='" + elecField + "'")[0]["Value"];
+                    decimal m_Output = (decimal)completeSourceTable.Select("VariableId='" + outputField + "'")[0]["Value"];
+                    currentValue = m_Output == 0 ? 0 : m_CoalInput * 1000 / m_Output;
                 }
                 else
                 {

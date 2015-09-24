@@ -41,7 +41,7 @@
                                     <input id="productLineName" class="easyui-textbox" style="width: 180px;" readonly="true" /><input id="organizationId" readonly="true" style="display: none;" /></td>
                                 <td>时间：</td>
                                 <td>
-                                    <input id="datetime" class="easyui-datetimespinner" value="6/24/2014" data-options="formatter:formatter2,parser:parser2,selections:[[0,4],[5,7]]" style="width: 180px;" /></td>
+                                    <input id="datetime" class="easyui-datetimespinner" value="2015-09-10" data-options="formatter:formatter2,parser:parser2,selections:[[0,4],[5,7]]" style="width: 180px;" /></td>
                                 <td><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true"
                                     onclick="QueryReportFun();">查询</a>
                                 </td>
@@ -54,7 +54,7 @@
                         <table>
                             <tr>
                                 <td>
-                                    <a href="#" class="easyui-linkbutton" iconcls="icon-reload" plain="true" onclick="RefreshFun();">刷新</a>
+                                    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" onclick="RefreshFun();">刷新</a>
                                 </td>
                                 <td>
                                     <div class="datagrid-btn-separator"></div>
