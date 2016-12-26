@@ -9,6 +9,10 @@ $(function () {
 function loadGridData(myLoadType, organizationId, datetime) {
     //parent.$.messager.progress({ text: '数据加载中....' });
     var m_MsgData;
+    var win = $.messager.progress({
+        title: '请稍后',
+        msg: '数据载入中...'
+    });
     $.ajax({
         type: "POST",
         url: "JobEvaluationMonthlyReport.aspx/GetJobEvaluationData",
@@ -16,6 +20,7 @@ function loadGridData(myLoadType, organizationId, datetime) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
+            $.messager.progress('close');
             if (myLoadType == 'first') {
                 m_MsgData = jQuery.parseJSON(msg.d);
                 InitializeGrid(m_MsgData);
@@ -25,7 +30,13 @@ function loadGridData(myLoadType, organizationId, datetime) {
                 $('#gridMain_ReportTemplate').datagrid('loadData', m_MsgData['rows']);
             }
         },
-        error: handleError
+        beforeSend: function (XMLHttpRequest) {
+            win;
+        },
+        error: function () {
+            $.messager.progress('close');
+            handleError
+        }
     });
 }
 
@@ -44,13 +55,13 @@ function InitializeGrid(myData) {
         idField: "field",
         //frozenColumns: [[m_IdAndNameColumn[1]]],
         columns: [[
-                    { field: 'PerformanceName', title: '项目指标', width: 100 },
-                    { field: 'PlanValue', title: '计划值', width: 100 },
-                    { field: 'CompleteValue', title: '完成值', width: 100 },
-                    { field: 'GradeValueI', title: '及格值', width: 100 },
-                    { field: 'GradeValueII', title: '良好值', width: 100 },
-                    { field: 'GradeValueIII', title: '优秀值', width: 100 },
-                    { field: 'ActualScore', title: '得分', width: 100 }
+                    { field: 'PerformanceName', title: '项目指标', width: 80 },
+                    { field: 'PlanValue', title: '计划值', width: 60 },
+                    { field: 'CompleteValue', title: '完成值', width: 60 },
+                    { field: 'GradeValueI', title: '及格值', width: 60 },
+                    { field: 'GradeValueII', title: '良好值', width: 60 },
+                    { field: 'GradeValueIII', title: '优秀值', width: 60 },
+                    { field: 'ActualScore', title: '得分', width: 40 }
                  ]],
         //loadMsg: '',   //设置本身的提示消息为空 则就不会提示了的。这个设置很关键的
         rownumbers: true,

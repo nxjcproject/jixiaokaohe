@@ -62,7 +62,11 @@ function refresh() {
 }
 function query() {
     var date = $('#datetime').datetimespinner('getValue');
-    var sendData = "{levelCodesStr:'"+g_labelList+"',date:'"+date+"',type:'"+g_type+"'}";
+    var sendData = "{levelCodesStr:'" + g_labelList + "',date:'" + date + "',type:'" + g_type + "'}";
+    var win = $.messager.progress({
+        title: '请稍后',
+        msg: '数据载入中...'
+    });
     $.ajax({
         type: "POST",
         url: "OperatorEvaluation.aspx/GetData",
@@ -70,8 +74,12 @@ function query() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
+            $.messager.progress('close');
             var data = JSON.parse(msg.d);
             initOperatorEvaluationDatagrid(data, 'last');
+        },
+        beforeSend: function (XMLHttpRequest) {
+            win;
         }
     });
 }

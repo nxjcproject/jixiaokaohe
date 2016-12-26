@@ -25,7 +25,7 @@
 </head>
 <body>
     <div class="easyui-layout" data-options="fit:true,border:false">
-        <div data-options="region:'west',split:true" style="width:230px;">
+        <div data-options="region:'west',split:true" style="width:150px;">
             <uc1:OrganisationTree runat="server" id="OrganisationTree" />
         </div>
         <div data-options="region:'center',border:false">
@@ -36,7 +36,7 @@
                         <tr>
                             <td>组织机构：</td>
                             <td>
-                                <input id="txtOrganization" class="easyui-textbox" data-options="editable:false" style="width: 150px;" /><input id="organizationId" readonly="true" style="display: none;" /></td>
+                                <input id="txtOrganization" class="easyui-textbox" data-options="editable:false" style="width: 100px;" /><input id="organizationId" readonly="true" style="display: none;" /></td>
                             <td><div class="datagrid-btn-separator"></div></td>
                             <td>考核项目：</td>
                             <td>

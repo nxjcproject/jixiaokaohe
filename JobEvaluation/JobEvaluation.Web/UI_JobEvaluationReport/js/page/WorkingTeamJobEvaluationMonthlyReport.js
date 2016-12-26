@@ -27,7 +27,10 @@ function Query() {
 function GetShiftsSchedulingLog(organizationId, startDate, endDate) {
     var queryUrl = 'WorkingTeamJobEvaluationMonthlyReport.aspx/GetShiftsSchedulingLog';
     var dataToSend = '{organizationId: "' + organizationId + '", startDate:"' + startDate + '", endDate:"' + endDate+'"}';
-
+    var win = $.messager.progress({
+        title: '请稍后',
+        msg: '数据载入中...'
+    });
     $.ajax({
         type: "POST",
         url: queryUrl,
@@ -35,9 +38,13 @@ function GetShiftsSchedulingLog(organizationId, startDate, endDate) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (msg) {
+            $.messager.progress('close');
             $('#dgShiftsScheduling').datagrid({
                 data: jQuery.parseJSON(msg.d)
             });
+        },
+        beforeSend: function (XMLHttpRequest) {
+            win;
         }
     });
 }
@@ -45,7 +52,6 @@ function GetShiftsSchedulingLog(organizationId, startDate, endDate) {
 function GetTeamJobEvaluation(organizationId, consumptionType, startDate, endDate) {
     var queryUrl = 'WorkingTeamJobEvaluationMonthlyReport.aspx/GetTeamJobEvaluation';
     var dataToSend = '{organizationId: "' + organizationId + '",consumptionType:"' + consumptionType + '", startDate:"' + startDate + '", endDate:"' + endDate + '"}';
-
     $.ajax({
         type: "POST",
         url: queryUrl,
@@ -56,7 +62,7 @@ function GetTeamJobEvaluation(organizationId, consumptionType, startDate, endDat
             $('#tgTeamJobEvaluation').treegrid({
                 data: jQuery.parseJSON(msg.d)
             });
-        }
+        },
     });
 }
 

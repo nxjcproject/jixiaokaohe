@@ -50,7 +50,7 @@
 <body>
     <div class="easyui-layout" data-options="fit:true,border:false">
         <!-- 左侧组织机构目录树开始 -->
-        <div class="easyui-panel" data-options="region:'west',border:false" style="width: 230px;">
+        <div class="easyui-panel" data-options="region:'west',border:false" style="width: 150px;">
             <uc1:OrganisationTree runat="server" ID="OrganisationTree" />
         </div>
         <div class="easyui-panel" data-options="region:'center',border:false">
