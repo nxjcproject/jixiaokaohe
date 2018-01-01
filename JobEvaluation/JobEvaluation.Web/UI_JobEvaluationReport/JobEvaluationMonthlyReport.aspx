@@ -36,20 +36,20 @@
                     <td>
                         <table>
                             <tr>
-                                <td>生产线：</td>
+                                <td style="width: 60px; text-align: right;">组织机构</td>
                                 <td>
                                     <input id="productLineName" class="easyui-textbox" style="width: 100px;" readonly="true" /><input id="organizationId" readonly="true" style="display: none;" /></td>
-                                <td>时间：</td>
+                                <td style="width: 30px; text-align: right;">时间</td>
                                 <td>
                                     <input id="datetime" class="easyui-datetimespinner" value="2015-09-10" data-options="formatter:formatter2,parser:parser2,selections:[[0,4],[5,7]]" style="width: 100px;" /></td>
-                                <td><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true"
+                                <td><a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
                                     onclick="QueryReportFun();">查询</a>
                                 </td>
                             </tr>
                         </table>
                     </td>
                 </tr>
-                <tr>
+                <%--<tr>
                     <td>
                         <table>
                             <tr>
@@ -59,14 +59,14 @@
                                 <td>
                                     <div class="datagrid-btn-separator"></div>
                                 </td>
-                                <td><%--<a href="#" class="easyui-linkbutton" data-options="iconCls:'ext-icon-page_white_excel',plain:true" onclick="ExportFileFun();">导出</a>--%>
+                                <td><a href="#" class="easyui-linkbutton" data-options="iconCls:'ext-icon-page_white_excel',plain:true" onclick="ExportFileFun();">导出</a>
                                 </td>
-                                <%--<td><a href="#" class="easyui-linkbutton" data-options="iconCls:'ext-icon-printer',plain:true" onclick="PrintFileFun();">打印</a>--%>
-                                <%--</td>--%>
+                                <td><a href="#" class="easyui-linkbutton" data-options="iconCls:'ext-icon-printer',plain:true" onclick="PrintFileFun();">打印</a>
+                                </td>
                             </tr>
                         </table>
                     </td>
-                </tr>
+                </tr>--%>
             </table>
         </div>
         <div data-options="region:'center',border:false">

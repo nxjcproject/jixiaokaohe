@@ -34,23 +34,21 @@
                     <table>
                         <tr><td style="height:5px;"></td></tr>
                         <tr>
-                            <td>组织机构：</td>
+                            <td style="width: 50px; text-align: right;">组织机构</td>
                             <td>
                                 <input id="txtOrganization" class="easyui-textbox" data-options="editable:false" style="width: 100px;" /><input id="organizationId" readonly="true" style="display: none;" /></td>
-                            <td><div class="datagrid-btn-separator"></div></td>
-                            <td>考核项目：</td>
+                            <td style="width: 50px; text-align: right;">考核项目</td>
                             <td>
-                                <select id="cbbConsumptionType" class="easyui-combobox" data-options="panelHeight:'auto'" style="width:80px;">
+                                <select id="cbbConsumptionType" class="easyui-combobox" data-options="panelHeight:'auto'" style="width:60px;">
                                     <option value="ElectricityConsumption">电耗</option>
                                     <option value="CoalConsumption">煤耗</option>
                                 </select>
-                            </td>
-                            <td><div class="datagrid-btn-separator"></div></td>
-                            <td>开始时间:</td>
+                            </td>                         
+                            <td style="width: 50px; text-align: right;">开始时间</td>
                             <td>
                                 <input id="startDate" type="text" class="easyui-datebox" required="required" style="width:100px;"/>
                             </td>
-                            <td>结束时间:</td>
+                            <td style="width: 50px; text-align: right;">结束时间</td>
                             <td>
                                 <input id="endDate" type="text" class="easyui-datebox" required="required" style="width:100px;"/>
                             </td>
@@ -74,12 +72,12 @@
 	                <table id="tgTeamJobEvaluation" class="easyui-treegrid" data-options="idField:'id',treeField:'Name',rownumbers:true,singleSelect:true,fit:true" style="width:100%">
 		                <thead>
 			                <tr>
-				                <th data-options="field:'Name',width:250">工序</th>
-                                <th data-options="field:'A班',width:60,formatter:ValueFormatter,styler:JobEvaluationStyler">A班</th>
-				                <th data-options="field:'B班',width:60,formatter:ValueFormatter,styler:JobEvaluationStyler">B班</th>
-                                <th data-options="field:'C班',width:60,formatter:ValueFormatter,styler:JobEvaluationStyler">C班</th>
-                                <th data-options="field:'D班',width:60,formatter:ValueFormatter,styler:JobEvaluationStyler">D班</th>
-                                <th data-options="field:'合计',width:60,formatter:ValueFormatter,styler:JobEvaluationStyler">平均</th>
+				                <th data-options="field:'Name',width:280">工序</th>
+                                <th data-options="field:'A班',width:70,formatter:ValueFormatter,styler:JobEvaluationStyler">A班</th>
+				                <th data-options="field:'B班',width:70,formatter:ValueFormatter,styler:JobEvaluationStyler">B班</th>
+                                <th data-options="field:'C班',width:70,formatter:ValueFormatter,styler:JobEvaluationStyler">C班</th>
+                                <th data-options="field:'D班',width:70,formatter:ValueFormatter,styler:JobEvaluationStyler">D班</th>
+                                <th data-options="field:'合计',width:70,formatter:ValueFormatter,styler:JobEvaluationStyler">平均</th>
 			                </tr>
 		                </thead>
 	                </table>

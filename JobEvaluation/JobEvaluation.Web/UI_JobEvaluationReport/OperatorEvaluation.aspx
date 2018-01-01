@@ -57,11 +57,11 @@
             <div class="easyui-layout" data-options="fit:true,border:false">
                 <div data-options="region:'west',border:false, collapsible:true, split:false" style="width: 230px">
                     <div id="toolbarId" class="easyui-panel" style="height: 120px; padding: 10px">
-                        <span>时间：</span>
+                        <span>时间</span>
                         <input id="datetime" class="easyui-datetimespinner" value="6/24/2014" data-options="formatter:formatter2,parser:parser2,selections:[[0,4],[5,7]]" style="width: 150px;" />
                         <hr />
                         <div>
-                            <label>考核类型选择：</label>
+                            <label>考核类型选择</label>
                             <input  type="radio" value="0" name="type"  checked="checked"/><label>电耗</label>
                             <input  type="radio" value="1" name="type" /><label>煤耗</label>
                         </div>
