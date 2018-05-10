@@ -13,6 +13,7 @@ function InitDate() {
     $('#endDate').datebox('setValue', endString);
 }
 function Query() {
+    var organizationLevelCode = $('#organizationId').val();
     var organizationId = $('#organizationId').val();
     var startDate = $('#startDate').datebox('getValue');
     var endDate = $('#endDate').datebox('getValue');
@@ -21,7 +22,7 @@ function Query() {
     // 获取排班记录
     GetShiftsSchedulingLog(organizationId, startDate, endDate);
     // 获取考核记录
-    GetTeamJobEvaluation(organizationId, consumptionType, startDate, endDate);
+    GetTeamJobEvaluation(organizationLevelCode, consumptionType, startDate, endDate);
 }
 
 function GetShiftsSchedulingLog(organizationId, startDate, endDate) {
@@ -49,9 +50,9 @@ function GetShiftsSchedulingLog(organizationId, startDate, endDate) {
     });
 }
 
-function GetTeamJobEvaluation(organizationId, consumptionType, startDate, endDate) {
+function GetTeamJobEvaluation(organizationLevelCode, consumptionType, startDate, endDate) {
     var queryUrl = 'WorkingTeamJobEvaluationMonthlyReport.aspx/GetTeamJobEvaluation';
-    var dataToSend = '{organizationId: "' + organizationId + '",consumptionType:"' + consumptionType + '", startDate:"' + startDate + '", endDate:"' + endDate + '"}';
+    var dataToSend = '{organizationLevelCode: "' + organizationLevelCode + '",consumptionType:"' + consumptionType + '", startDate:"' + startDate + '", endDate:"' + endDate + '"}';
     $.ajax({
         type: "POST",
         url: queryUrl,
@@ -106,7 +107,7 @@ function onOrganisationTreeClick(node) {
     // 设置组织机构ID
     // organizationId为其它任何函数提供当前选中的组织机构ID
 
-    $('#organizationId').val(node.OrganizationId);
+    $('#organizationId').val(node.id);
 
     // 设置组织机构名称
     // 用于呈现，在界面上显示当前的组织机构名称

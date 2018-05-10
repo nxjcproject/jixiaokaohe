@@ -18,7 +18,7 @@ namespace JobEvaluation.Web.UI_JobEvaluationReport
 
             ////////////////////调试用,自定义的数据授权
 #if DEBUG
-            List<string> m_DataValidIdItems = new List<string>() { "zc_nxjc_byc" };
+            List<string> m_DataValidIdItems = new List<string>() { "zc_nxjc_byc", "zc_nxjc_qtx" };
             AddDataValidIdGroup("ProductionOrganization", m_DataValidIdItems);
 #elif RELEASE
 #endif
@@ -35,11 +35,11 @@ namespace JobEvaluation.Web.UI_JobEvaluationReport
         }
 
         [WebMethod]
-        public static string GetTeamJobEvaluation(string organizationId, string consumptionType, string startDate,string endDate)
+        public static string GetTeamJobEvaluation(string organizationLevelCode, string consumptionType, string startDate, string endDate)
         {
-            //DateTime datetime = DateTime.Parse(date);
-            DataTable table = WorkingTeamJobEvaluationService.GetTeamJobEvaluationMonthly(organizationId, consumptionType, startDate, endDate);
-            return EasyUIJsonParser.TreeGridJsonParser.DataTableToJsonByLevelCode(table, "LevelCode");
+            DataTable table = WorkingTeamJobEvaluationService.GetTeamJobEvaluationMonthly(organizationLevelCode, consumptionType, startDate, endDate);
+            string json = EasyUIJsonParser.TreeGridJsonParser.DataTableToJsonByLevelCode(table, "LevelCode");
+            return json;
         }
     }
 }
