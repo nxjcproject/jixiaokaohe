@@ -18,20 +18,22 @@ namespace JobEvaluation.Service.JobEvaluationAnalysis
         /// <param name="organizationId">组织机构ID</param>
         /// <param name="date">时间，yyyy-MM</param>
         /// <returns></returns>
-        public static DataTable GetShiftsSchedulingLogMonthly(string organizationId, string startDate,string endDate)
+        public static DataTable GetShiftsSchedulingLogMonthly(string organizationLevelCode, string startDate, string endDate)
         {
             string connectionString = ConnectionStringFactory.NXJCConnectionString;
             ISqlServerDataFactory dataFactory = new SqlServerDataFactory(connectionString);
 
-            string sql = @" SELECT [TimeStamp],[FirstWorkingTeam],[SecondWorkingTeam],[ThirdWorkingTeam]
-                              FROM [tz_Balance]
-                              WHERE TimeStamp>=@startDate AND TimeStamp<=@endDate
-		                            and StaticsCycle = 'day' AND
-		                            [OrganizationID] = @organizationId
-                              ORDER BY [TimeStamp]";
+            string sql = @"SELECT [TimeStamp],[FirstWorkingTeam],[SecondWorkingTeam],[ThirdWorkingTeam]
+                             FROM [tz_Balance] A
+                                 ,[system_Organization] B 
+                             WHERE A.TimeStamp>=@startDate AND A.TimeStamp<=@endDate
+		                       and A.StaticsCycle = 'day' 
+                               AND A.[OrganizationID] = B.[OrganizationID] 
+                               AND B.[LevelCode] =@organizationLevelCode
+                          ORDER BY [TimeStamp]";
 
             SqlParameter[] parameters = new SqlParameter[]{
-                new SqlParameter("organizationId", organizationId),
+                new SqlParameter("organizationLevelCode", organizationLevelCode),
                 new SqlParameter("startDate", startDate),
                 new SqlParameter("endDate",endDate)
             };

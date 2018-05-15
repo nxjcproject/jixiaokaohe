@@ -14,20 +14,19 @@ function InitDate() {
 }
 function Query() {
     var organizationLevelCode = $('#organizationId').val();
-    var organizationId = $('#organizationId').val();
     var startDate = $('#startDate').datebox('getValue');
     var endDate = $('#endDate').datebox('getValue');
     var consumptionType = $('#cbbConsumptionType').combobox('getValue');
 
     // 获取排班记录
-    GetShiftsSchedulingLog(organizationId, startDate, endDate);
+    GetShiftsSchedulingLog(organizationLevelCode, startDate, endDate);
     // 获取考核记录
     GetTeamJobEvaluation(organizationLevelCode, consumptionType, startDate, endDate);
 }
 
-function GetShiftsSchedulingLog(organizationId, startDate, endDate) {
+function GetShiftsSchedulingLog(organizationLevelCode, startDate, endDate) {
     var queryUrl = 'WorkingTeamJobEvaluationMonthlyReport.aspx/GetShiftsSchedulingLog';
-    var dataToSend = '{organizationId: "' + organizationId + '", startDate:"' + startDate + '", endDate:"' + endDate+'"}';
+    var dataToSend = '{organizationLevelCode: "' + organizationLevelCode + '", startDate:"' + startDate + '", endDate:"' + endDate + '"}';
     var win = $.messager.progress({
         title: '请稍后',
         msg: '数据载入中...'

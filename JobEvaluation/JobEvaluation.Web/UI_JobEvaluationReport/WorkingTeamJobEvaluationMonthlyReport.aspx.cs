@@ -28,9 +28,9 @@ namespace JobEvaluation.Web.UI_JobEvaluationReport
         }
 
         [WebMethod]
-        public static string GetShiftsSchedulingLog(string organizationId, string startDate,string endDate)
+        public static string GetShiftsSchedulingLog(string organizationLevelCode, string startDate, string endDate)
         {
-            DataTable table = WorkingTeamJobEvaluationService.GetShiftsSchedulingLogMonthly(organizationId,startDate,endDate);
+            DataTable table = WorkingTeamJobEvaluationService.GetShiftsSchedulingLogMonthly(organizationLevelCode, startDate, endDate);
             return EasyUIJsonParser.DataGridJsonParser.DataTableToJson(table);
         }
 
